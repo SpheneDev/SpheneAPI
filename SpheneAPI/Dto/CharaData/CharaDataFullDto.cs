@@ -11,6 +11,10 @@ public record CharaDataFullDto(string Id, UserData Uploader) : CharaDataDto(Id, 
     public string GlamourerData { get; set; } = string.Empty;
     public string CustomizeData { get; set; } = string.Empty;
     public string ManipulationData { get; set; } = string.Empty;
+    public string HeelsData { get; set; } = string.Empty;
+    public string HonorificData { get; set; } = string.Empty;
+    public string MoodlesData { get; set; } = string.Empty;
+    public string PetNamesData { get; set; } = string.Empty;
     public int DownloadCount { get; set; } = 0;
     public List<UserData> AllowedUsers { get; set; } = [];
     public List<GroupData> AllowedGroups { get; set; } = [];
