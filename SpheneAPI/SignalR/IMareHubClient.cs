@@ -33,6 +33,8 @@ public interface IMareHubClient : IMareHub
 
     void OnUserReceiveCharacterData(Action<OnlineUserCharaDataDto> act);
 
+    void OnUserReceiveCharacterDataAcknowledgment(Action<CharacterDataAcknowledgmentDto> act);
+
     void OnUserReceiveUploadStatus(Action<UserDto> act);
 
     void OnUserRemoveClientPair(Action<UserDto> act);

@@ -26,6 +26,7 @@ public interface IMareHub
     Task Client_UpdateSystemInfo(SystemInfoDto systemInfo);
     Task Client_UserAddClientPair(UserPairDto dto);
     Task Client_UserReceiveCharacterData(OnlineUserCharaDataDto dataDto);
+    Task Client_UserReceiveCharacterDataAcknowledgment(CharacterDataAcknowledgmentDto acknowledgmentDto);
     Task Client_UserReceiveUploadStatus(UserDto dto);
     Task Client_UserRemoveClientPair(UserDto dto);
     Task Client_UserSendOffline(UserDto dto);
