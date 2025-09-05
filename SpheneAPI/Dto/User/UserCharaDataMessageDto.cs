@@ -4,4 +4,7 @@ using MessagePack;
 namespace Sphene.API.Dto.User;
 
 [MessagePackObject(keyAsPropertyName: true)]
-public record UserCharaDataMessageDto(List<UserData> Recipients, CharacterData CharaData, CensusDataDto? CensusDataDto);
+public record UserCharaDataMessageDto(List<UserData> Recipients, CharacterData CharaData, CensusDataDto? CensusDataDto)
+{
+    public string? AcknowledgmentId { get; init; }
+}
