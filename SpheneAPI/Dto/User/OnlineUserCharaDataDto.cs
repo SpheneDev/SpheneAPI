@@ -8,4 +8,5 @@ public record OnlineUserCharaDataDto(UserData User, CharacterData CharaData) : U
 {
     public string? AcknowledgmentId { get; init; }
     public bool RequiresAcknowledgment { get; init; } = true;
+    public long SequenceNumber { get; set; } = 0;
 }
