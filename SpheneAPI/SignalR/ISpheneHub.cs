@@ -7,10 +7,10 @@ using Sphene.API.Dto.User;
 
 namespace Sphene.API.SignalR;
 
-public interface IMareHub
+public interface ISpheneHub
 {
     const int ApiVersion = 33;
-    const string Path = "/mare";
+    const string Path = "/sphene";
 
     Task<bool> CheckClientHealth();
 

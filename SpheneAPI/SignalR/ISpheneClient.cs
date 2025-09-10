@@ -7,7 +7,7 @@ using Sphene.API.Dto.User;
 
 namespace Sphene.API.SignalR;
 
-public interface IMareHubClient : IMareHub
+public interface ISpheneHubClient : ISpheneHub
 {
     void OnDownloadReady(Action<Guid> act);
 

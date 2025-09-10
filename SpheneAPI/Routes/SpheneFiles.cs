@@ -1,6 +1,6 @@
 namespace Sphene.API.Routes;
 
-public class MareFiles
+public class SpheneFiles
 {
     public const string Cache = "/cache";
     public const string Cache_Get = "get";
