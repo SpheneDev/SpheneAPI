@@ -9,4 +9,6 @@ public enum UserPermissions
     DisableSounds = 4,
     DisableVFX = 8,
     Sticky = 16,
+    AckYou = 32,
+    AckOther = 64,
 }

@@ -34,6 +34,7 @@ public interface ISpheneHub
     Task Client_UserUpdateOtherPairPermissions(UserPermissionsDto dto);
     Task Client_UpdateUserIndividualPairStatusDto(UserIndividualPairStatusDto dto);
     Task Client_UserUpdateProfile(UserDto dto);
+    Task Client_UserAckYouUpdate(UserPermissionsDto dto);
     Task Client_UserUpdateSelfPairPermissions(UserPermissionsDto dto);
     Task Client_UserUpdateDefaultPermissions(DefaultPermissionsDto dto);
     Task Client_GroupChangeUserPairPermissions(GroupPairUserPermissionDto dto);
@@ -89,4 +90,6 @@ public interface ISpheneHub
     Task GposeLobbyPushCharacterData(CharaDataDownloadDto charaDownloadDto);
     Task GposeLobbyPushPoseData(PoseData poseData);
     Task GposeLobbyPushWorldData(WorldData worldData);
+
+    Task UserUpdateAckYou(bool ackYou);
 }

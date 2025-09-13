@@ -60,4 +60,6 @@ public interface ISpheneHubClient : ISpheneHub
     void OnGposeLobbyPushCharacterData(Action<CharaDataDownloadDto> act);
     void OnGposeLobbyPushPoseData(Action<UserData, PoseData> act);
     void OnGposeLobbyPushWorldData(Action<UserData, WorldData> act);
+
+    void OnUserAckYouUpdate(Action<UserPermissionsDto> act);
 }
