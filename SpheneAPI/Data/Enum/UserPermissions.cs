@@ -10,5 +10,4 @@ public enum UserPermissions
     DisableVFX = 8,
     Sticky = 16,
     AckYou = 32,
-    AckOther = 64,
 }

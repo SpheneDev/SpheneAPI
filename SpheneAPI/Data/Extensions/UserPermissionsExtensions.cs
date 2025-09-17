@@ -64,20 +64,9 @@ public static class UserPermissionsExtensions
         return perm.HasFlag(UserPermissions.AckYou);
     }
 
-    public static bool IsAckOther(this UserPermissions perm)
-    {
-        return perm.HasFlag(UserPermissions.AckOther);
-    }
-
     public static void SetAckYou(this ref UserPermissions perm, bool ackYou)
     {
         if (ackYou) perm |= UserPermissions.AckYou;
         else perm &= ~UserPermissions.AckYou;
-    }
-
-    public static void SetAckOther(this ref UserPermissions perm, bool ackOther)
-    {
-        if (ackOther) perm |= UserPermissions.AckOther;
-        else perm &= ~UserPermissions.AckOther;
     }
 }
