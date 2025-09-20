@@ -20,10 +20,24 @@ public enum AcknowledgmentErrorCode
 }
 
 [MessagePackObject(keyAsPropertyName: true)]
-public record CharacterDataAcknowledgmentDto(UserData User, string AcknowledgmentId) : UserDto(User)
+public record CharacterDataAcknowledgmentDto(UserData User, string DataHash) : UserDto(User)
 {
     public bool Success { get; init; } = true;
     public string? ErrorMessage { get; init; }
     public AcknowledgmentErrorCode ErrorCode { get; init; } = AcknowledgmentErrorCode.None;
     public DateTime AcknowledgedAt { get; init; } = DateTime.UtcNow;
+}
+
+[MessagePackObject(keyAsPropertyName: true)]
+public record CharacterDataHashValidationRequest
+{
+    public string UserUID { get; init; } = string.Empty;
+    public string DataHash { get; init; } = string.Empty;
+}
+
+[MessagePackObject(keyAsPropertyName: true)]
+public record CharacterDataHashValidationResponse
+{
+    public bool IsValid { get; init; }
+    public string? CurrentHash { get; init; }
 }
