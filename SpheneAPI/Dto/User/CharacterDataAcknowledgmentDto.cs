@@ -26,6 +26,7 @@ public record CharacterDataAcknowledgmentDto(UserData User, string DataHash) : U
     public string? ErrorMessage { get; init; }
     public AcknowledgmentErrorCode ErrorCode { get; init; } = AcknowledgmentErrorCode.None;
     public DateTime AcknowledgedAt { get; init; } = DateTime.UtcNow;
+    public string SessionId { get; init; } = string.Empty;
 }
 
 [MessagePackObject(keyAsPropertyName: true)]

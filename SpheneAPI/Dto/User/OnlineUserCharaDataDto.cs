@@ -9,4 +9,5 @@ public record OnlineUserCharaDataDto(UserData User, CharacterData CharaData) : U
     public string DataHash { get; init; } = string.Empty;
     public bool RequiresAcknowledgment { get; init; } = true;
     public long SequenceNumber { get; set; } = 0;
+    public string SessionId { get; init; } = string.Empty;
 }
