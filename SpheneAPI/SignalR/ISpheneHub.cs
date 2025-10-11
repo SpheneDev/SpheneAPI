@@ -43,6 +43,10 @@ public interface ISpheneHub
     Task Client_GposeLobbyPushCharacterData(CharaDataDownloadDto charaDownloadDto);
     Task Client_GposeLobbyPushPoseData(UserData userData, PoseData poseData);
     Task Client_GposeLobbyPushWorldData(UserData userData, WorldData worldData);
+    Task Client_AreaBoundJoinRequest(AreaBoundJoinRequestDto dto);
+    Task Client_AreaBoundJoinResponse(AreaBoundJoinResponseDto dto);
+    Task Client_AreaBoundSyncshellBroadcast(AreaBoundBroadcastDto dto);
+    Task Client_AreaBoundSyncshellConfigurationUpdate();
 
     Task<ConnectionDto> GetConnectionDto();
 
@@ -51,7 +55,7 @@ public interface ISpheneHub
     Task GroupChangeOwnership(GroupPairDto groupPair);
     Task<bool> GroupChangePassword(GroupPasswordDto groupPassword);
     Task GroupClear(GroupDto group);
-    Task<GroupJoinDto> GroupCreate();
+    Task<GroupJoinDto> GroupCreate(GroupCreateDto? dto = null);
     Task<List<string>> GroupCreateTempInvite(GroupDto group, int amount);
     Task GroupDelete(GroupDto group);
     Task<List<BannedGroupUserDto>> GroupGetBannedUsers(GroupDto group);
@@ -63,6 +67,13 @@ public interface ISpheneHub
     Task<List<GroupFullInfoDto>> GroupsGetAll();
     Task GroupUnbanUser(GroupPairDto groupPair);
     Task<int> GroupPrune(GroupDto group, int days, bool execute);
+    
+    Task<bool> GroupSetAreaBinding(AreaBoundSyncshellDto areaBoundSyncshell);
+    Task<bool> GroupRemoveAreaBinding(GroupDto group);
+    Task<List<AreaBoundSyncshellDto>> GroupGetAreaBoundSyncshells();
+    Task<bool> GroupRequestAreaBoundJoin(AreaBoundJoinRequestDto joinRequest);
+    Task GroupRespondToAreaBoundJoin(AreaBoundJoinResponseDto joinResponse);
+    Task BroadcastAreaBoundSyncshells(LocationInfo userLocation);
 
     Task UserAddPair(UserDto user);
     Task UserDelete();
@@ -92,4 +103,8 @@ public interface ISpheneHub
     Task GposeLobbyPushWorldData(WorldData worldData);
 
     Task UserUpdateAckYou(bool ackYou);
+    
+    Task<List<UserHousingPropertyDto>> UserGetHousingProperties();
+    Task<UserHousingPropertyDto?> UserSetHousingProperty(UserHousingPropertyUpdateDto dto);
+    Task<bool> UserDeleteHousingProperty(LocationInfo location);
 }

@@ -55,6 +55,11 @@ public interface ISpheneHubClient : ISpheneHub
 
     void OnGroupChangeUserPairPermissions(Action<GroupPairUserPermissionDto> act);
 
+    void OnAreaBoundSyncshellBroadcast(Action<AreaBoundBroadcastDto> act);
+    void OnAreaBoundJoinRequest(Action<AreaBoundJoinRequestDto> act);
+    void OnAreaBoundJoinResponse(Action<AreaBoundJoinResponseDto> act);
+    void OnAreaBoundSyncshellConfigurationUpdate(Action act);
+
     void OnGposeLobbyJoin(Action<UserData> act);
     void OnGposeLobbyLeave(Action<UserData> act);
     void OnGposeLobbyPushCharacterData(Action<CharaDataDownloadDto> act);
