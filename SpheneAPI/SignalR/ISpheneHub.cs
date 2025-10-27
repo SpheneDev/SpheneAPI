@@ -47,6 +47,17 @@ public interface ISpheneHub
     Task Client_AreaBoundJoinResponse(AreaBoundJoinResponseDto dto);
     Task Client_AreaBoundSyncshellBroadcast(AreaBoundBroadcastDto dto);
     Task Client_AreaBoundSyncshellConfigurationUpdate();
+    Task Client_DeathrollInvitationReceived(DeathrollInvitationDto dto);
+    Task Client_DeathrollInvitationResponse(DeathrollInvitationResponseDto dto);
+    Task Client_DeathrollGameStateUpdate(DeathrollGameStateDto dto);
+    Task Client_DeathrollLobbyJoinRequest(DeathrollJoinLobbyDto joinRequest);
+    Task Client_DeathrollLobbyOpenClose(string gameId, bool isOpen);
+    Task Client_DeathrollLobbyLeave(DeathrollLeaveLobbyDto leaveInfo);
+    Task Client_DeathrollGameStart(string gameId);
+    Task Client_DeathrollLobbyCanceled(string gameId);
+    Task Client_DeathrollPlayerReady(string gameId, string playerId, bool isReady);
+    Task Client_DeathrollLobbyAnnouncement(DeathrollLobbyAnnouncementDto announcement);
+    Task Client_DeathrollTournamentUpdate(DeathrollTournamentStateDto dto);
 
     Task<ConnectionDto> GetConnectionDto();
 
@@ -105,6 +116,20 @@ public interface ISpheneHub
     Task UserUpdateAckYou(bool ackYou);
     
     Task<List<UserHousingPropertyDto>> UserGetHousingProperties();
+    
+    Task<bool> DeathrollSendInvitation(DeathrollInvitationDto invitation);
+    Task<bool> DeathrollRespondToInvitation(DeathrollInvitationResponseDto response);
+    Task<bool> DeathrollUpdateGameState(DeathrollGameStateDto gameState);
+    Task<bool> DeathrollUpdateLobbyState(DeathrollGameStateDto lobbyState);
+    Task<bool> DeathrollCreateLobby(DeathrollCreateLobbyDto createLobby);
+    Task<bool> DeathrollJoinLobby(DeathrollJoinLobbyDto joinLobby);
+    Task<bool> DeathrollLeaveLobby(DeathrollLeaveLobbyDto leaveLobby);
+    Task<bool> DeathrollOpenCloseLobby(string gameId, bool isOpen);
+    Task<bool> DeathrollStartGameFromLobby(string gameId);
+    Task<bool> DeathrollCancelLobby(string gameId);
+    Task<bool> DeathrollSetPlayerReady(string gameId, string playerId, bool isReady);
+    Task<bool> DeathrollAnnounceLobby(DeathrollLobbyAnnouncementDto announcement);
+    Task<bool> DeathrollUpdateTournamentState(DeathrollTournamentStateDto dto);
     Task<UserHousingPropertyDto?> UserSetHousingProperty(UserHousingPropertyUpdateDto dto);
     Task<bool> UserDeleteHousingProperty(LocationInfo location);
 }
