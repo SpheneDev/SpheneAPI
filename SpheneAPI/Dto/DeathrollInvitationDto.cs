@@ -37,6 +37,7 @@ public class DeathrollGameStateDto
 {
     public string GameId { get; set; } = string.Empty;
     public DeathrollGameState State { get; set; }
+    public DeathrollGameMode GameMode { get; set; } = DeathrollGameMode.Standard;
     public List<UserData> Players { get; set; } = new();
     public UserData? CurrentPlayer { get; set; }
     public int CurrentRollMax { get; set; } = 1000;
