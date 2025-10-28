@@ -60,6 +60,10 @@ public interface ISpheneHubClient : ISpheneHub
     void OnAreaBoundJoinResponse(Action<AreaBoundJoinResponseDto> act);
     void OnAreaBoundSyncshellConfigurationUpdate(Action act);
 
+    void OnDeathrollInvitationReceived(Action<DeathrollInvitationDto> act);
+    void OnDeathrollInvitationResponse(Action<DeathrollInvitationResponseDto> act);
+    void OnDeathrollGameStateUpdate(Action<DeathrollGameStateDto> act);
+
     void OnGposeLobbyJoin(Action<UserData> act);
     void OnGposeLobbyLeave(Action<UserData> act);
     void OnGposeLobbyPushCharacterData(Action<CharaDataDownloadDto> act);
