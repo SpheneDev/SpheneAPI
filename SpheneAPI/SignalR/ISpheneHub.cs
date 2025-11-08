@@ -48,6 +48,9 @@ public interface ISpheneHub
     Task Client_AreaBoundSyncshellBroadcast(AreaBoundBroadcastDto dto);
     Task Client_AreaBoundSyncshellConfigurationUpdate();
 
+    // Mutual visibility status update pushed by server
+    Task Client_UserMutualVisibilityUpdate(Sphene.API.Dto.Visibility.MutualVisibilityDto dto);
+
     Task<ConnectionDto> GetConnectionDto();
 
     Task GroupBanUser(GroupPairDto dto, string reason);
