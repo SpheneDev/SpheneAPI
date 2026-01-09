@@ -67,4 +67,6 @@ public interface ISpheneHubClient : ISpheneHub
     void OnGposeLobbyPushWorldData(Action<UserData, WorldData> act);
 
     void OnUserAckYouUpdate(Action<UserPermissionsDto> act);
+
+    void OnUserGposeStateUpdate(Action<UserGposeStateDto> act);
 }

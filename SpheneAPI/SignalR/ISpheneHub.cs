@@ -9,7 +9,7 @@ namespace Sphene.API.SignalR;
 
 public interface ISpheneHub
 {
-    const int ApiVersion = 33;
+    const int ApiVersion = 34;
     const string Path = "/sphene";
 
     Task<bool> CheckClientHealth();
@@ -50,6 +50,8 @@ public interface ISpheneHub
 
     // Mutual visibility status update pushed by server
     Task Client_UserMutualVisibilityUpdate(Sphene.API.Dto.Visibility.MutualVisibilityDto dto);
+
+    Task Client_UserGposeStateUpdate(Sphene.API.Dto.User.UserGposeStateDto dto);
 
     Task<ConnectionDto> GetConnectionDto();
 
@@ -106,6 +108,8 @@ public interface ISpheneHub
     Task GposeLobbyPushWorldData(WorldData worldData);
 
     Task UserUpdateAckYou(bool ackYou);
+
+    Task UserUpdateGposeState(bool isInGpose);
     
     Task<List<UserHousingPropertyDto>> UserGetHousingProperties();
     Task<UserHousingPropertyDto?> UserSetHousingProperty(UserHousingPropertyUpdateDto dto);
