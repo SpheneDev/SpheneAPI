@@ -22,6 +22,7 @@ public class SpheneFiles
     public const string ServerFiles_ModHistory_All = "modHistoryAll";
     public const string ServerFiles_ModDownloadHistory = "modDownloadHistory";
     public const string ServerFiles_ModShareHistory = "modShareHistory";
+    public const string ServerFiles_ModReceivedHistory = "modReceivedHistory";
     public const string ServerFiles_PenumbraBackups = "penumbraBackups";
     public const string ServerFiles_PenumbraBackups_Create = "create";
     public const string ServerFiles_PenumbraBackups_List = "list";
@@ -54,6 +55,7 @@ public class SpheneFiles
     public static Uri ServerFilesModHistoryAllFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModHistory_All);
     public static Uri ServerFilesModDownloadHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModDownloadHistory);
     public static Uri ServerFilesModShareHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModShareHistory);
+    public static Uri ServerFilesModReceivedHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModReceivedHistory);
     public static Uri ServerFilesPenumbraBackupsCreateFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_Create);
     public static Uri ServerFilesPenumbraBackupsListFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_List);
     public static Uri ServerFilesPenumbraBackupsGetFullPath(Uri baseUri, Guid backupId) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_Get + "?backupId=" + backupId.ToString());
