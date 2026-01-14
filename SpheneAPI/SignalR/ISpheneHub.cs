@@ -4,17 +4,19 @@ using Sphene.API.Dto;
 using Sphene.API.Dto.CharaData;
 using Sphene.API.Dto.Group;
 using Sphene.API.Dto.User;
+using Sphene.API.Dto.Files;
 
 namespace Sphene.API.SignalR;
 
 public interface ISpheneHub
 {
-    const int ApiVersion = 34;
+    const int ApiVersion = 33;
     const string Path = "/sphene";
 
     Task<bool> CheckClientHealth();
 
     Task Client_DownloadReady(Guid requestId);
+    Task Client_UserReceiveFileNotification(FileTransferNotificationDto notification);
     Task Client_GroupChangePermissions(GroupPermissionDto groupPermission);
     Task Client_GroupDelete(GroupDto groupDto);
     Task Client_GroupPairChangeUserInfo(GroupPairUserInfoDto userInfo);
@@ -37,6 +39,7 @@ public interface ISpheneHub
     Task Client_UserAckYouUpdate(UserPermissionsDto dto);
     Task Client_UserUpdateSelfPairPermissions(UserPermissionsDto dto);
     Task Client_UserUpdateDefaultPermissions(DefaultPermissionsDto dto);
+    Task Client_UserPenumbraReceivePreferenceUpdate(UserPenumbraReceivePreferenceDto dto);
     Task Client_GroupChangeUserPairPermissions(GroupPairUserPermissionDto dto);
     Task Client_GposeLobbyJoin(UserData userData);
     Task Client_GposeLobbyLeave(UserData userData);
@@ -108,6 +111,7 @@ public interface ISpheneHub
     Task GposeLobbyPushWorldData(WorldData worldData);
 
     Task UserUpdateAckYou(bool ackYou);
+    Task UserUpdatePenumbraReceivePreference(bool allowMods);
 
     Task UserUpdateGposeState(bool isInGpose);
     

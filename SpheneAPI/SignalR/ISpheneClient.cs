@@ -4,6 +4,7 @@ using Sphene.API.Dto;
 using Sphene.API.Dto.CharaData;
 using Sphene.API.Dto.Group;
 using Sphene.API.Dto.User;
+using Sphene.API.Dto.Files;
 
 namespace Sphene.API.SignalR;
 
@@ -69,4 +70,6 @@ public interface ISpheneHubClient : ISpheneHub
     void OnUserAckYouUpdate(Action<UserPermissionsDto> act);
 
     void OnUserGposeStateUpdate(Action<UserGposeStateDto> act);
+
+    void OnUserReceiveFileNotification(Action<FileTransferNotificationDto> act);
 }
