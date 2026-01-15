@@ -19,6 +19,11 @@ public static class UserPermissionsExtensions
         return perm.HasFlag(UserPermissions.DisableVFX);
     }
 
+    public static bool IsDisableVFXInDuty(this UserPermissions perm)
+    {
+        return perm.HasFlag(UserPermissions.DisableVFXInDuty);
+    }
+
     public static bool IsPaused(this UserPermissions perm)
     {
         return perm.HasFlag(UserPermissions.Paused);
@@ -45,6 +50,12 @@ public static class UserPermissionsExtensions
     {
         if (set) perm |= UserPermissions.DisableVFX;
         else perm &= ~UserPermissions.DisableVFX;
+    }
+
+    public static void SetDisableVFXInDuty(this ref UserPermissions perm, bool set)
+    {
+        if (set) perm |= UserPermissions.DisableVFXInDuty;
+        else perm &= ~UserPermissions.DisableVFXInDuty;
     }
 
     public static void SetPaused(this ref UserPermissions perm, bool paused)
