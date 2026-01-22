@@ -10,5 +10,6 @@ public record PenumbraModBackupEntryDto(
     string? Author,
     string? Version,
     string? Description,
-    string? Website);
+    string? Website,
+    string? FolderHash = null);
 
