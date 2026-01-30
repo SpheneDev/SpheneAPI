@@ -56,6 +56,8 @@ public interface ISpheneHub
 
     Task Client_UserGposeStateUpdate(Sphene.API.Dto.User.UserGposeStateDto dto);
 
+    Task Client_UserReceiveBypassEmote(BypassEmoteUpdateDto dto);
+
     Task<ConnectionDto> GetConnectionDto();
 
     Task GroupBanUser(GroupPairDto dto, string reason);

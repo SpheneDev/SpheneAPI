@@ -16,7 +16,7 @@ public class CharacterData
         DataHash = new(() => ComputeHash(this));
         PenumbraHash = new(() => ComputeHash(new PenumbraHashData(FileReplacements, ManipulationData)));
         GlamourerHash = new(() => ComputeHash(new GlamourerHashData(GlamourerData)));
-        RestHash = new(() => ComputeHash(new RestHashData(CustomizePlusData, HeelsData, HonorificData, MoodlesData, PetNamesData)));
+        RestHash = new(() => ComputeHash(new RestHashData(CustomizePlusData, HeelsData, HonorificData, MoodlesData, PetNamesData, BypassEmoteData)));
     }
 
     public Dictionary<ObjectKind, string> CustomizePlusData { get; set; } = new();
@@ -36,6 +36,7 @@ public class CharacterData
     public string ManipulationData { get; set; } = string.Empty;
     public string MoodlesData { get; set; } = string.Empty;
     public string PetNamesData { get; set; } = string.Empty;
+    public string BypassEmoteData { get; set; } = string.Empty;
 
     private static string ComputeHash(object data)
     {
@@ -48,5 +49,5 @@ public class CharacterData
 
     private sealed record PenumbraHashData(Dictionary<ObjectKind, List<FileReplacementData>> FileReplacements, string ManipulationData);
     private sealed record GlamourerHashData(Dictionary<ObjectKind, string> GlamourerData);
-    private sealed record RestHashData(Dictionary<ObjectKind, string> CustomizePlusData, string HeelsData, string HonorificData, string MoodlesData, string PetNamesData);
+    private sealed record RestHashData(Dictionary<ObjectKind, string> CustomizePlusData, string HeelsData, string HonorificData, string MoodlesData, string PetNamesData, string BypassEmoteData);
 }
