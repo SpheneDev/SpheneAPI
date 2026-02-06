@@ -17,6 +17,9 @@ public record UserFullPairDto(UserData User, IndividualPairStatus IndividualPair
 public record UserPenumbraReceivePreferenceDto(UserData User, bool AllowReceivingPenumbraMods);
 
 [MessagePackObject(keyAsPropertyName: true)]
+public record UserUploadStatusDto(UserData User, bool IsUploading) : UserDto(User);
+
+[MessagePackObject(keyAsPropertyName: true)]
 public record UserPairDto(UserData User, IndividualPairStatus IndividualPairStatus, UserPermissions OwnPermissions, UserPermissions OtherPermissions) : UserDto(User)
 {
     public UserPermissions OwnPermissions { get; set; } = OwnPermissions;
