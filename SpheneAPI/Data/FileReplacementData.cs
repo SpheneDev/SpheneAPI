@@ -26,4 +26,7 @@ public class FileReplacementData
     public string FileSwapPath { get; set; } = string.Empty;
     public string[] GamePaths { get; set; } = Array.Empty<string>();
     public string Hash { get; set; } = string.Empty;
+    public string? ModName { get; set; }
+    public string? OptionName { get; set; }
+    public bool IsActive { get; set; } = true;
 }
