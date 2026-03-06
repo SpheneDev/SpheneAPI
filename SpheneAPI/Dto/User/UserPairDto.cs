@@ -11,6 +11,7 @@ public record UserFullPairDto(UserData User, IndividualPairStatus IndividualPair
     public UserPermissions OtherPermissions { get; set; } = OtherPermissions;
     public IndividualPairStatus IndividualPairStatus { get; set; } = IndividualPairStatus;
     public bool OtherAllowsReceivingPenumbraMods { get; set; } = OtherAllowsReceivingPenumbraMods;
+    public string? RemoteClientVersion { get; set; }
 }
 
 [MessagePackObject(keyAsPropertyName: true)]
@@ -25,4 +26,5 @@ public record UserPairDto(UserData User, IndividualPairStatus IndividualPairStat
     public UserPermissions OwnPermissions { get; set; } = OwnPermissions;
     public UserPermissions OtherPermissions { get; set; } = OtherPermissions;
     public IndividualPairStatus IndividualPairStatus { get; set; } = IndividualPairStatus;
+    public string? RemoteClientVersion { get; set; }
 }
