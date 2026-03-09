@@ -35,6 +35,7 @@ public interface ISpheneHubClient : ISpheneHub
     void OnUserReceiveCharacterData(Action<OnlineUserCharaDataDto> act);
 
     void OnUserReceiveCharacterDataAcknowledgment(Action<CharacterDataAcknowledgmentDto> act);
+    void OnUserReceiveCharacterDataAcknowledgmentV2(Action<CharacterDataAcknowledgmentEventDto> act);
 
     void OnUserReceiveUploadStatus(Action<UserUploadStatusDto> act);
 
