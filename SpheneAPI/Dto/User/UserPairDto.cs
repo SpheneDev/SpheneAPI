@@ -10,6 +10,7 @@ public record UserFullPairDto(UserData User, IndividualPairStatus IndividualPair
     public UserPermissions OwnPermissions { get; set; } = OwnPermissions;
     public UserPermissions OtherPermissions { get; set; } = OtherPermissions;
     public IndividualPairStatus IndividualPairStatus { get; set; } = IndividualPairStatus;
+    public bool IsOutgoingIndividualPair { get; set; } = false;
     public bool OtherAllowsReceivingPenumbraMods { get; set; } = OtherAllowsReceivingPenumbraMods;
     public string? RemoteClientVersion { get; set; }
 }
@@ -26,5 +27,6 @@ public record UserPairDto(UserData User, IndividualPairStatus IndividualPairStat
     public UserPermissions OwnPermissions { get; set; } = OwnPermissions;
     public UserPermissions OtherPermissions { get; set; } = OtherPermissions;
     public IndividualPairStatus IndividualPairStatus { get; set; } = IndividualPairStatus;
+    public bool IsOutgoingIndividualPair { get; set; } = false;
     public string? RemoteClientVersion { get; set; }
 }
