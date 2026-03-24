@@ -58,6 +58,7 @@ public interface ISpheneHub
     Task Client_UserGposeStateUpdate(Sphene.API.Dto.User.UserGposeStateDto dto);
 
     Task Client_UserReceiveBypassEmote(BypassEmoteUpdateDto dto);
+    Task Client_UserCharacterDataRefreshRequested(UserData requester);
 
     Task<ConnectionDto> GetConnectionDto();
 
@@ -92,6 +93,7 @@ public interface ISpheneHub
     Task<List<UserFullPairDto>> UserGetPairedClients();
     Task<UserProfileDto> UserGetProfile(UserDto dto);
     Task UserPushData(UserCharaDataMessageDto dto);
+    Task UserRequestCharacterDataRefresh(UserDto userDto);
     Task UserSendCharacterDataAcknowledgmentV2(CharacterDataAcknowledgmentEventDto acknowledgmentEventDto);
     Task UserRemovePair(UserDto userDto);
     Task UserSetProfile(UserProfileDto userDescription);

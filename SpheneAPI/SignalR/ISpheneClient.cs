@@ -73,4 +73,5 @@ public interface ISpheneHubClient : ISpheneHub
     void OnUserGposeStateUpdate(Action<UserGposeStateDto> act);
 
     void OnUserReceiveFileNotification(Action<FileTransferNotificationDto> act);
+    void OnUserCharacterDataRefreshRequested(Action<UserData> act);
 }
