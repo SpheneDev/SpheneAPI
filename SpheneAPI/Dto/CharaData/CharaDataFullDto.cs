@@ -28,7 +28,7 @@ public record CharaDataFullDto(string Id, UserData Uploader) : CharaDataDto(Id, 
 }
 
 [MessagePackObject(keyAsPropertyName: true)]
-public record GamePathEntry(string HashOrFileSwap, string GamePath);
+public record GamePathEntry(string HashOrFileSwap, string GamePath, bool IsActive = false);
 
 [MessagePackObject(keyAsPropertyName: true)]
 public record PoseEntry(long? Id)
