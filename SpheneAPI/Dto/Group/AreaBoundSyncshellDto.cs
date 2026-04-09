@@ -20,6 +20,7 @@ public record AreaBoundSyncshellDto(GroupData Group, List<AreaBoundLocationDto> 
 {
     public List<AreaBoundLocationDto> BoundAreas { get; set; } = BoundAreas;
     public bool IsAreaBound { get; set; } = true;
+    public bool IsLocked { get; set; } = false;
     public AreaBoundSettings Settings { get; set; } = new();
 }
 
@@ -69,5 +70,6 @@ public record AreaBoundBroadcastDto(GroupData Group, LocationInfo Area, List<Use
 {
     public LocationInfo Area { get; set; } = Area;
     public List<UserData> UsersInArea { get; set; } = UsersInArea;
+    public bool IsLocked { get; set; } = false;
     public DateTime BroadcastTime { get; set; } = DateTime.UtcNow;
 }
