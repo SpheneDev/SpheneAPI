@@ -10,6 +10,7 @@ public record ConnectionDto(UserData User)
     public int ServerVersion { get; set; }
     public bool IsAdmin { get; set; }
     public bool IsModerator { get; set; }
+    public bool IsSupporter { get; set; }
     public ServerInfo ServerInfo { get; set; } = new();
     public DefaultPermissionsDto DefaultPreferredPermissions { get; set; } = new();
 }
@@ -25,4 +26,5 @@ public record ServerInfo
     public Uri? FileServerFallbackAddress { get; set; } = null;
     public int MaxCharaData { get; set; }
     public int MaxCharaDataVanity { get; set; }
+    public bool SupporterFeaturesEnabled { get; set; }
 }

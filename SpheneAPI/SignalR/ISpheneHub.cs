@@ -60,6 +60,9 @@ public interface ISpheneHub
     Task Client_UserReceiveBypassEmote(BypassEmoteUpdateDto dto);
     Task Client_UserCharacterDataRefreshRequested(UserData requester);
 
+    // Supporter status update pushed by server
+    Task Client_UserUpdateSupporterStatus(bool isSupporter);
+
     Task<ConnectionDto> GetConnectionDto();
 
     Task GroupBanUser(GroupPairDto dto, string reason);
