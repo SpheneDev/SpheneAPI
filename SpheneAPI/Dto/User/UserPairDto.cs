@@ -12,6 +12,7 @@ public record UserFullPairDto(UserData User, IndividualPairStatus IndividualPair
     public IndividualPairStatus IndividualPairStatus { get; set; } = IndividualPairStatus;
     public bool IsOutgoingIndividualPair { get; set; } = false;
     public bool OtherAllowsReceivingPenumbraMods { get; set; } = OtherAllowsReceivingPenumbraMods;
+    public SupporterStyleDto? OtherSupporterStyle { get; set; }
     public string? RemoteClientVersion { get; set; }
 }
 

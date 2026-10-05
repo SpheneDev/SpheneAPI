@@ -41,6 +41,7 @@ public interface ISpheneHub
     Task Client_UserUpdateSelfPairPermissions(UserPermissionsDto dto);
     Task Client_UserUpdateDefaultPermissions(DefaultPermissionsDto dto);
     Task Client_UserPenumbraReceivePreferenceUpdate(UserPenumbraReceivePreferenceDto dto);
+    Task Client_UserSupporterStyleUpdate(UserSupporterStyleDto dto);
     Task Client_GroupChangeUserPairPermissions(GroupPairUserPermissionDto dto);
     Task Client_GposeLobbyJoin(UserData userData);
     Task Client_GposeLobbyLeave(UserData userData);
@@ -121,6 +122,7 @@ public interface ISpheneHub
 
     Task UserUpdateAckYou(bool ackYou);
     Task UserUpdatePenumbraReceivePreference(bool allowMods);
+    Task UserUpdateSupporterStyle(SupporterStyleDto? style);
 
     Task UserUpdateGposeState(bool isInGpose);
     
