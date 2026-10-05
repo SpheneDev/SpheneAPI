@@ -15,6 +15,7 @@ public class SupporterStyleDto
     public int SymbolColorKey { get; set; } = 43;
     public int LabelColorKey { get; set; } = 43;
     public bool IconEnabled { get; set; } = true;
+    public string IconId { get; set; } = string.Empty;
     public bool IconLabelEnabled { get; set; }
     public string IconLabelText { get; set; } = string.Empty;
     public uint IconLabelColor { get; set; } = 0xFFFFFFFFu;

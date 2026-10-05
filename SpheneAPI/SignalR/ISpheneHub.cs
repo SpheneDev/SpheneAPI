@@ -123,6 +123,8 @@ public interface ISpheneHub
     Task UserUpdateAckYou(bool ackYou);
     Task UserUpdatePenumbraReceivePreference(bool allowMods);
     Task UserUpdateSupporterStyle(SupporterStyleDto? style);
+    Task<List<SupporterIconInfoDto>> SupporterGetIcons();
+    Task<byte[]?> SupporterGetIconFile(string iconId);
 
     Task UserUpdateGposeState(bool isInGpose);
     
