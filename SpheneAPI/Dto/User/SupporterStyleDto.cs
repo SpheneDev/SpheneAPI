@@ -14,6 +14,10 @@ public class SupporterStyleDto
     public int LabelOrder { get; set; }
     public int SymbolColorKey { get; set; } = 43;
     public int LabelColorKey { get; set; } = 43;
+    public bool SymbolGlowEnabled { get; set; }
+    public int SymbolGlowKey { get; set; }
+    public bool LabelGlowEnabled { get; set; }
+    public int LabelGlowKey { get; set; }
     public bool IconEnabled { get; set; } = true;
     public string IconId { get; set; } = string.Empty;
     public bool IconLabelEnabled { get; set; }
