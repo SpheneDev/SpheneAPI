@@ -23,11 +23,6 @@ public class SpheneFiles
     public const string ServerFiles_ModDownloadHistory = "modDownloadHistory";
     public const string ServerFiles_ModShareHistory = "modShareHistory";
     public const string ServerFiles_ModReceivedHistory = "modReceivedHistory";
-    public const string ServerFiles_PenumbraBackups = "penumbraBackups";
-    public const string ServerFiles_PenumbraBackups_Create = "create";
-    public const string ServerFiles_PenumbraBackups_List = "list";
-    public const string ServerFiles_PenumbraBackups_Get = "get";
-    public const string ServerFiles_PenumbraBackups_Delete = "delete";
 
     public const string Distribution = "/dist";
     public const string Distribution_Get = "get";
@@ -56,10 +51,6 @@ public class SpheneFiles
     public static Uri ServerFilesModDownloadHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModDownloadHistory);
     public static Uri ServerFilesModShareHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModShareHistory);
     public static Uri ServerFilesModReceivedHistoryFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_ModReceivedHistory);
-    public static Uri ServerFilesPenumbraBackupsCreateFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_Create);
-    public static Uri ServerFilesPenumbraBackupsListFullPath(Uri baseUri) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_List);
-    public static Uri ServerFilesPenumbraBackupsGetFullPath(Uri baseUri, Guid backupId) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_Get + "?backupId=" + backupId.ToString());
-    public static Uri ServerFilesPenumbraBackupsDeleteFullPath(Uri baseUri, Guid backupId) => new(baseUri, ServerFiles + "/" + ServerFiles_PenumbraBackups + "/" + ServerFiles_PenumbraBackups_Delete + "?backupId=" + backupId.ToString());
     public static Uri DistributionGetFullPath(Uri baseUri, string hash) => new(baseUri, Distribution + "/" + Distribution_Get + "?file=" + hash);
     public static Uri SpeedtestRunFullPath(Uri baseUri) => new(baseUri, Speedtest + "/" + Speedtest_Run);
     public static Uri MainSendReadyFullPath(Uri baseUri, string uid, Guid request) => new(baseUri, Main + "/" + Main_SendReady + "/" + "?uid=" + uid + "&requestId=" + request.ToString());
