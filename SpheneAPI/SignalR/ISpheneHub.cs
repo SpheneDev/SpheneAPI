@@ -64,6 +64,9 @@ public interface ISpheneHub
     // Supporter status update pushed by server
     Task Client_UserUpdateSupporterStatus(bool isSupporter);
 
+    // Pushed to online paired users when a user's alias or display name changed
+    Task Client_UserIdentityUpdated(UserDto dto);
+
     Task<ConnectionDto> GetConnectionDto();
 
     Task GroupBanUser(GroupPairDto dto, string reason);
@@ -92,6 +95,7 @@ public interface ISpheneHub
     Task BroadcastAreaBoundSyncshells(LocationInfo userLocation);
 
     Task UserAddPair(UserDto user);
+    Task<AliasAvailabilityResult> UserCheckAliasAvailability(string alias);
     Task UserDelete();
     Task<List<OnlineUserIdentDto>> UserGetOnlinePairs(CensusDataDto? censusDataDto);
     Task<List<UserFullPairDto>> UserGetPairedClients();
@@ -100,6 +104,9 @@ public interface ISpheneHub
     Task UserRequestCharacterDataRefresh(UserDto userDto);
     Task UserSendCharacterDataAcknowledgmentV2(CharacterDataAcknowledgmentEventDto acknowledgmentEventDto);
     Task UserRemovePair(UserDto userDto);
+    Task<SetAliasResult> UserRenameAlias(string newAlias);
+    Task<SetAliasResult> UserSetAlias(string alias);
+    Task UserSetDisplayName(string? displayName);
     Task UserSetProfile(UserProfileDto userDescription);
     Task UserUpdateDefaultPermissions(DefaultPermissionsDto defaultPermissionsDto);
     Task SetBulkPermissions(BulkPermissionsDto dto);
