@@ -14,6 +14,11 @@ public static class GroupUserInfoExtensions
         return info.HasFlag(GroupPairUserInfo.IsPinned);
     }
 
+    public static bool IsStaff(this GroupPairUserInfo info)
+    {
+        return info.HasFlag(GroupPairUserInfo.IsStaff);
+    }
+
     public static void SetModerator(this ref GroupPairUserInfo info, bool isModerator)
     {
         if (isModerator) info |= GroupPairUserInfo.IsModerator;
@@ -24,5 +29,11 @@ public static class GroupUserInfoExtensions
     {
         if (isPinned) info |= GroupPairUserInfo.IsPinned;
         else info &= ~GroupPairUserInfo.IsPinned;
+    }
+
+    public static void SetStaff(this ref GroupPairUserInfo info, bool isStaff)
+    {
+        if (isStaff) info |= GroupPairUserInfo.IsStaff;
+        else info &= ~GroupPairUserInfo.IsStaff;
     }
 }

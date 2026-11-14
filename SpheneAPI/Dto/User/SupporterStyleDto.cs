@@ -23,6 +23,10 @@ public class SupporterStyleDto
     public bool IconLabelEnabled { get; set; }
     public string IconLabelText { get; set; } = string.Empty;
     public uint IconLabelColor { get; set; } = 0xFFFFFFFFu;
+    /// <summary>Name of the supporter's chosen nameplate effect (registry id,
+    /// e.g. "bat.orbit"); empty disables the effect. Unknown ids are ignored
+    /// by receivers running an older effect registry.</summary>
+    public string FxId { get; set; } = string.Empty;
 }
 
 [MessagePackObject(keyAsPropertyName: true)]

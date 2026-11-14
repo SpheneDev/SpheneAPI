@@ -1,6 +1,7 @@
 using Sphene.API.Data;
 using Sphene.API.Data.Enum;
 using Sphene.API.Dto;
+using Sphene.API.Dto.Announcement;
 using Sphene.API.Dto.CharaData;
 using Sphene.API.Dto.Group;
 using Sphene.API.Dto.User;
@@ -31,6 +32,8 @@ public interface ISpheneHubClient : ISpheneHub
     void OnUpdateSystemInfo(Action<SystemInfoDto> act);
 
     void OnUserAddClientPair(Action<UserPairDto> act);
+
+    void OnUserReceiveChatMessage(Action<ChatMessageDto> act);
 
     void OnUserReceiveCharacterData(Action<OnlineUserCharaDataDto> act);
 
@@ -74,4 +77,9 @@ public interface ISpheneHubClient : ISpheneHub
 
     void OnUserReceiveFileNotification(Action<FileTransferNotificationDto> act);
     void OnUserCharacterDataRefreshRequested(Action<UserData> act);
+
+    void OnAnnouncementPublished(Action<AnnouncementDto> act);
+    void OnAnnouncementsChanged(Action act);
+    void OnCommunityChanged(Action<CommunityChangedDto> act);
+    void OnUserNotification(Action<UserNotificationDto> act);
 }

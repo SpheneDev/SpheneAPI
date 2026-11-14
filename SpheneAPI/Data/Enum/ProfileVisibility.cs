@@ -13,4 +13,7 @@ public enum ProfileVisibility : ushort
     HideDescription = 1 << 2,
     HideStatusMessage = 1 << 3,
     HideTags = 1 << 4,
+    HideGallery = 1 << 5,
+    HideBlog = 1 << 6,
+    HideLinks = 1 << 7,
 }

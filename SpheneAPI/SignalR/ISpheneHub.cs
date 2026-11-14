@@ -1,6 +1,7 @@
 using Sphene.API.Data;
 using Sphene.API.Data.Enum;
 using Sphene.API.Dto;
+using Sphene.API.Dto.Announcement;
 using Sphene.API.Dto.CharaData;
 using Sphene.API.Dto.Group;
 using Sphene.API.Dto.User;
@@ -28,6 +29,7 @@ public interface ISpheneHub
     Task Client_UpdateSystemInfo(SystemInfoDto systemInfo);
     Task Client_UserAddClientPair(UserPairDto dto);
     Task Client_UserReceiveCharacterData(OnlineUserCharaDataDto dataDto);
+    Task Client_UserReceiveChatMessage(ChatMessageDto message);
     Task Client_UserReceiveCharacterDataAcknowledgment(CharacterDataAcknowledgmentDto acknowledgmentDto);
     Task Client_UserReceiveCharacterDataAcknowledgmentV2(CharacterDataAcknowledgmentEventDto acknowledgmentEventDto);
     Task Client_UserReceiveUploadStatus(UserUploadStatusDto dto);
@@ -64,6 +66,15 @@ public interface ISpheneHub
     // Supporter status update pushed by server
     Task Client_UserUpdateSupporterStatus(bool isSupporter);
 
+    // Pushed to all clients when a non-draft announcement is first published
+    Task Client_AnnouncementPublished(AnnouncementDto dto);
+
+    // Pushed when an announcement is edited or deleted · clients invalidate their cache
+    Task Client_AnnouncementsChanged();
+
+    // Pushed to syncshell members when community content changed · clients invalidate the affected shell's cache
+    Task Client_CommunityChanged(CommunityChangedDto dto);
+
     // Pushed to online paired users when a user's alias or display name changed
     Task Client_UserIdentityUpdated(UserDto dto);
 
@@ -81,6 +92,15 @@ public interface ISpheneHub
     Task<GroupJoinInfoDto> GroupJoin(GroupPasswordDto passwordedGroup);
     Task<bool> GroupJoinFinalize(GroupJoinDto passwordedGroup);
     Task GroupLeave(GroupDto group);
+
+    // Membership & join policy (Phase 1)
+    Task<SyncshellJoinPolicy> GroupGetJoinPolicy(GroupDto group);
+    Task<bool> GroupSetJoinPolicy(GroupJoinPolicyDto dto);
+    Task<bool> GroupApplyForMembership(GroupApplyMembershipDto dto);
+    Task<bool> GroupWithdrawMembershipApplication(GroupDto group);
+    Task<MembershipApplicationDto?> GroupGetMyMembershipApplication(GroupDto group);
+    Task<List<MembershipApplicationDto>> GroupGetMembershipApplications(GroupDto group);
+    Task<MembershipApplicationDto?> GroupDecideMembershipApplication(GroupMembershipDecisionDto dto);
     Task GroupRemoveUser(GroupPairDto groupPair);
     Task GroupSetUserInfo(GroupPairUserInfoDto groupPair);
     Task<List<GroupFullInfoDto>> GroupsGetAll();
@@ -95,11 +115,21 @@ public interface ISpheneHub
     Task BroadcastAreaBoundSyncshells(LocationInfo userLocation);
 
     Task UserAddPair(UserDto user);
+    Task UserBlock(UserDto user);
+    Task UserUnblock(UserDto user);
+    Task<List<UserDto>> UserGetBlockedUsers();
+    Task UserSendChatMessage(UserDto recipient, string message);
+    Task<List<ChatMessageDto>> UserGetChatHistory(UserDto other, int skip = 0, int take = 50);
+    Task UserMarkChatRead(UserDto other);
     Task<AliasAvailabilityResult> UserCheckAliasAvailability(string alias);
     Task UserDelete();
     Task<List<OnlineUserIdentDto>> UserGetOnlinePairs(CensusDataDto? censusDataDto);
     Task<List<UserFullPairDto>> UserGetPairedClients();
     Task<UserProfileDto> UserGetProfile(UserDto dto);
+
+    /// <summary>Activates the one-time 24h supporter trial - idempotent for
+    /// supporters and already-used trials; returns the stamped start.</summary>
+    Task<DateTime?> UserActivateSupporterTrial();
     Task UserPushData(UserCharaDataMessageDto dto);
     Task UserRequestCharacterDataRefresh(UserDto userDto);
     Task UserSendCharacterDataAcknowledgmentV2(CharacterDataAcknowledgmentEventDto acknowledgmentEventDto);
@@ -138,4 +168,77 @@ public interface ISpheneHub
     Task<List<UserHousingPropertyDto>> UserGetHousingProperties();
     Task<UserHousingPropertyDto?> UserSetHousingProperty(UserHousingPropertyUpdateDto dto);
     Task<bool> UserDeleteHousingProperty(LocationInfo location);
+
+    Task<List<AnnouncementDto>> GetAnnouncements(int skip = 0, int take = 20);
+    Task<List<AnnouncementDto>> AdminGetAnnouncements(int skip = 0, int take = 50);
+    Task<long?> AdminCreateAnnouncement(AnnouncementUpsertDto dto);
+    Task<bool> AdminUpdateAnnouncement(AnnouncementUpsertDto dto);
+    Task<bool> AdminDeleteAnnouncement(long id);
+
+    // Pushed to a recipient when a durable notification was created for them
+    Task Client_UserNotification(UserNotificationDto dto);
+
+    Task<List<UserNotificationDto>> UserGetNotifications(int take = 50);
+    Task UserMarkNotificationsRead(List<long> ids);
+    Task UserClearNotifications();
+
+    // Phase 2 - publishing pipeline
+    Task<SyncshellPublishingPolicyDto> GroupGetPublishingPolicy(GroupDto dto);
+    Task<bool> GroupSetPublishingPolicy(SyncshellPublishingPolicyDto dto);
+    Task<SyncshellNewsPostDto?> GroupSubmitCommunityNews(SyncshellNewsPostUpdateDto dto);
+    Task<bool> GroupDecideCommunityNews(CommunityReviewDecisionDto dto);
+    Task<CommunityReviewQueueDto> GroupGetCommunityReviewQueue(GroupDto dto);
+    Task<SyncshellGalleryImageDto?> GroupSubmitCommunityGalleryImage(SyncshellGalleryImageUpdateDto dto);
+    Task<bool> GroupDecideCommunityGalleryImage(CommunityReviewDecisionDto dto);
+    Task<List<EntityCardDto>> EntityResolveReferences(List<string> tokens);
+    Task<CommunityMediaUploadInfoDto> GroupGetCommunityMediaUploadInfo(GroupDto dto);
+
+    // Phase 3 - events: RSVP, participants, calendar, member submission
+    Task<SyncshellEventDto?> GroupSubmitCommunityEvent(SyncshellEventUpdateDto dto);
+    Task<bool> GroupDecideCommunityEvent(CommunityReviewDecisionDto dto);
+    Task<EventParticipantsDto> GroupSetEventRsvp(EventRsvpDto dto);
+    Task<EventParticipantsDto> GroupGetEventParticipants(EventRsvpDto dto);
+    Task<EventParticipantsDto> GroupUpdateEventParticipant(EventRsvpDto dto);
+    Task<List<SyncshellEventOccurrenceDto>> GroupGetEventCalendar(SyncshellEventCalendarRequestDto dto);
+    Task<bool> GroupUpsertEventException(SyncshellEventExceptionDto dto);
+
+    // Phase 4 - comments: paginated read + upsert/delete + moderation
+    Task<CommentPageDto> GetComments(CommentPageRequestDto dto);
+    Task<CommentPageDto> GetCommentReplies(CommentPageRequestDto dto);
+    Task<CommunityCommentDto?> UpsertComment(CommentUpsertDto dto);
+    Task<bool> DeleteComment(CommentUpsertDto dto);
+    Task<CommunityCommentDto?> SetCommentModeration(CommentModerationDto dto);
+
+    // Phase 4 - reactions: state-based writes + aggregate/who-read
+    Task<ReactionSummaryDto> SetReaction(ReactionSetDto dto);
+    Task<ReactionSummaryDto> GetReactionSummary(ReactionSetDto dto);
+    Task<ReactionUsersDto> GetReactionUsers(ReactionUsersRequestDto dto);
+
+    // Phase 4 - reports + moderation queues (community + platform)
+    Task<bool> ReportContent(ReportCreateDto dto);
+    Task<ModerationQueueDto> GetModerationQueue(GroupDto dto);
+    Task<bool> ResolveReport(ReportDecisionDto dto);
+    Task<PlatformReportQueueDto> GetPlatformReportQueue();
+    Task<bool> ResolvePlatformReport(ReportDecisionDto dto);
+
+    // Phase 4 - user-facing notification mute controls
+    Task<bool> UserSetNotificationMutes(long disabledKindsMask);
+
+    // Phase 5 - community experience: keyset-paged feed v2 (opaque cursor).
+    // GroupGetCommunityFeed was already callable by name since v1.1.29;
+    // v39 formalizes it in the interface (no wire change).
+    Task<SyncshellCommunityFeedDto> GroupGetCommunityFeed();
+    Task<SyncshellCommunityFeedPageDto> GroupGetCommunityFeedPage(FeedPageRequestDto dto);
+
+    // GroupGetCommunityProfile is deliberately name-invoked like
+    // GroupGetCommunity - a slim profile read for list/card surfaces.
+
+    // Phase 5 - read path for the v38 mute setter
+    Task<long> UserGetNotificationMutes();
+
+    // Phase 5 - profile activity tab: narrow target-uid request; the server
+    // loads the profile, gates ProfileVisibility + UserBlock (both ways) and
+    // applies per-target ACL to every row. Inaccessible profile and empty
+    // activity degrade to the same empty page - no existence disclosure.
+    Task<SyncshellCommunityFeedPageDto> UserGetProfileActivity(string targetUid, FeedPageRequestDto dto);
 }

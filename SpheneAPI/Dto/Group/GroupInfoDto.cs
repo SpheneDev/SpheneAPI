@@ -15,4 +15,5 @@ public record GroupInfoDto(GroupData Group, UserData Owner, GroupPermissions Gro
     public string OwnerAliasOrUID => Owner.AliasOrUID;
 }
 
-public record GroupJoinInfoDto(GroupData Group, UserData Owner, GroupPermissions GroupPermissions, bool Success) : GroupInfoDto(Group, Owner, GroupPermissions);
+public record GroupJoinInfoDto(GroupData Group, UserData Owner, GroupPermissions GroupPermissions, bool Success,
+    SyncshellJoinPolicy JoinPolicy = SyncshellJoinPolicy.PasswordProtected) : GroupInfoDto(Group, Owner, GroupPermissions);

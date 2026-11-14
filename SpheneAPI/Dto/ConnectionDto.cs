@@ -11,6 +11,11 @@ public record ConnectionDto(UserData User)
     public bool IsAdmin { get; set; }
     public bool IsModerator { get; set; }
     public bool IsSupporter { get; set; }
+
+    /// <summary>Server-stamped start of the one-time 24h supporter trial -
+    /// non-null once used; the client derives active/expired from it.</summary>
+    public DateTime? SupporterTrialStartUtc { get; set; }
+
     public bool RequiresAliasSetup { get; set; }
     public DateTime? AliasChangeAvailableAt { get; set; }
     public ServerInfo ServerInfo { get; set; } = new();
