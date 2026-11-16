@@ -121,6 +121,26 @@ public interface ISpheneHub
     Task UserSendChatMessage(UserDto recipient, string message);
     Task<List<ChatMessageDto>> UserGetChatHistory(UserDto other, int skip = 0, int take = 50);
     Task UserMarkChatRead(UserDto other);
+
+    /// <summary>Registers/renews the caller's device E2EE public key.
+    /// publicKey is the 65-byte uncompressed P-256 point.</summary>
+    Task UserPublishChatDeviceKey(string deviceId, byte[] publicKey);
+    /// <summary>Revokes one of the caller's own device keys; new messages can
+    /// no longer be addressed to it (existing ciphertext stays readable for
+    /// that device's private key holder).</summary>
+    Task UserRevokeChatDeviceKey(string deviceId);
+    /// <summary>Active device keys for the caller plus paired, unblocked UIDs.</summary>
+    Task<List<ChatDeviceKeyDto>> UserGetChatDeviceKeys(List<string> uids);
+    /// <summary>Sends a sealed message. Copies must address exactly the active
+    /// devices of sender and recipient; the server never sees plaintext.
+    /// <paramref name="sentAtUtc"/> is the sender's timestamp bound into the
+    /// ciphertext's authenticated metadata - stored verbatim so recipients
+    /// can verify it (server tolerates small clock skew).</summary>
+    Task UserSendSealedChatMessage(UserDto recipient, Guid messageId,
+        List<ChatCipherCopyDto> copies, DateTime sentAtUtc);
+    /// <summary>Atomically claims a still-plaintext history row and replaces it
+    /// with sealed copies produced by the caller. Idempotent.</summary>
+    Task<bool> UserMigrateChatMessage(Guid messageId, List<ChatCipherCopyDto> copies);
     Task<AliasAvailabilityResult> UserCheckAliasAvailability(string alias);
     Task UserDelete();
     Task<List<OnlineUserIdentDto>> UserGetOnlinePairs(CensusDataDto? censusDataDto);
