@@ -34,6 +34,8 @@ public interface ISpheneHubClient : ISpheneHub
     void OnUserAddClientPair(Action<UserPairDto> act);
 
     void OnUserReceiveChatMessage(Action<ChatMessageDto> act);
+    void OnUserChatDelivered(Action<UserDto> act);
+    void OnUserChatRead(Action<UserDto> act);
 
     void OnUserReceiveCharacterData(Action<OnlineUserCharaDataDto> act);
 

@@ -30,6 +30,12 @@ public interface ISpheneHub
     Task Client_UserAddClientPair(UserPairDto dto);
     Task Client_UserReceiveCharacterData(OnlineUserCharaDataDto dataDto);
     Task Client_UserReceiveChatMessage(ChatMessageDto message);
+    /// <summary>Pushed to a sender when the peer's client acknowledged
+    /// delivery of their messages (delivery receipt).</summary>
+    Task Client_UserChatDelivered(UserDto reader);
+    /// <summary>Pushed to a sender when the peer marked their messages read
+    /// (read receipt).</summary>
+    Task Client_UserChatRead(UserDto reader);
     Task Client_UserReceiveCharacterDataAcknowledgment(CharacterDataAcknowledgmentDto acknowledgmentDto);
     Task Client_UserReceiveCharacterDataAcknowledgmentV2(CharacterDataAcknowledgmentEventDto acknowledgmentEventDto);
     Task Client_UserReceiveUploadStatus(UserUploadStatusDto dto);
@@ -121,6 +127,14 @@ public interface ISpheneHub
     Task UserSendChatMessage(UserDto recipient, string message);
     Task<List<ChatMessageDto>> UserGetChatHistory(UserDto other, int skip = 0, int take = 50);
     Task UserMarkChatRead(UserDto other);
+    /// <summary>Marks every incoming message from <paramref name="other"/> as
+    /// delivered to this device/account - sent when the client receives or
+    /// fetches rows, before they are opened. Read implies delivered.</summary>
+    Task UserMarkChatDelivered(UserDto other);
+    /// <summary>Unread incoming counts per conversation (paired and
+    /// unblocked senders only). Lets a connecting client surface offline
+    /// messages without opening every conversation.</summary>
+    Task<List<ChatUnreadDto>> UserGetChatUnread();
 
     /// <summary>Registers/renews the caller's device E2EE public key.
     /// publicKey is the 65-byte uncompressed P-256 point.</summary>

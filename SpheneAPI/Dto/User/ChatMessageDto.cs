@@ -20,4 +20,9 @@ public record ChatMessageDto(Guid Id, UserData Sender, UserData Recipient,
     /// <summary>Present only on migrated rows: the UID that performed the
     /// migration, so clients can surface non-native provenance.</summary>
     public string? MigratedByUid { get; set; }
+
+    /// <summary>Recipient device acknowledged the row (push receipt or
+    /// history fetch). For the sender's own messages only - drives the
+    /// delivered state between "sent" and <see cref="Read"/>.</summary>
+    public bool Delivered { get; set; }
 }
