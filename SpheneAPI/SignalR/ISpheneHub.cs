@@ -155,6 +155,17 @@ public interface ISpheneHub
     /// <summary>Atomically claims a still-plaintext history row and replaces it
     /// with sealed copies produced by the caller. Idempotent.</summary>
     Task<bool> UserMigrateChatMessage(Guid messageId, List<ChatCipherCopyDto> copies);
+    /// <summary>Compare-and-swap write of the caller's encrypted chat key
+    /// backup: applies only while <paramref name="expectedRevision"/> still
+    /// matches the stored revision (0 = create-only-when-absent). Opaque
+    /// ciphertext to the server - the wrap key is derived client-side from
+    /// the secret key, of which only a hash reaches the server. Conflicts
+    /// return the current revision and blob for a merge retry.</summary>
+    Task<ChatKeyBackupResult> UserPutChatKeyBackup(byte[] blob,
+        long expectedRevision);
+    /// <summary>The caller's encrypted chat key backup plus its server
+    /// revision; null when none was uploaded yet.</summary>
+    Task<ChatKeyBackupDto?> UserGetChatKeyBackup();
     Task<AliasAvailabilityResult> UserCheckAliasAvailability(string alias);
     Task UserDelete();
     Task<List<OnlineUserIdentDto>> UserGetOnlinePairs(CensusDataDto? censusDataDto);
