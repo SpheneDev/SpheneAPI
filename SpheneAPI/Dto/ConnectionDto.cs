@@ -34,4 +34,21 @@ public record ServerInfo
     public int MaxCharaData { get; set; }
     public int MaxCharaDataVanity { get; set; }
     public bool SupporterFeaturesEnabled { get; set; }
+
+    /// <summary>Whether this user may use the private-chat GIF feature:
+    /// server GIF service enabled AND (public release enabled OR the user's
+    /// gif_beta_enabled flag). Stamped per connection.</summary>
+    public bool GifEnabled { get; set; }
+
+    /// <summary>Optional operator-published GIF-provider API key for
+    /// client-side GIF search (empty = GIF search unavailable). Plain key,
+    /// not a secret - but only shipped to clients with
+    /// <see cref="GifEnabled"/>; the sealed message payload identifies
+    /// which provider the key is for.</summary>
+    public string GifApiKey { get; set; } = string.Empty;
+
+    /// <summary>Operator-configured assumed request budget per hour for the
+    /// GIF API key, surfaced in client diagnostics as a local estimate only
+    /// (KLIPY test keys cap at 100/hour; 0 = no estimate shown).</summary>
+    public int GifTestKeyLimit { get; set; }
 }
