@@ -47,7 +47,10 @@ public record UserProfileBlogPostDto(
     int CommentCount = 0,
     bool CommentsLocked = false,
     /// <summary>Optional community-media hash of the entry's cover image.</summary>
-    string? CoverMediaHash = null
+    string? CoverMediaHash = null,
+    /// <summary>Unique non-owner viewers - deduplicated on
+    /// (post, viewer) server-side; the owner's own reads never count.</summary>
+    int ViewCount = 0
 );
 
 /// <summary>

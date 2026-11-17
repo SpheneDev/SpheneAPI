@@ -269,6 +269,11 @@ public interface ISpheneHub
     // Phase 4 - user-facing notification mute controls
     Task<bool> UserSetNotificationMutes(long disabledKindsMask);
 
+    /// <summary>Marks one Chronicle as seen by the caller - deduplicated per
+    /// (post, viewer), self-views and posts outside the caller's visibility
+    /// scope never count.</summary>
+    Task UserMarkBlogPostViewed(long postId);
+
     // Phase 5 - community experience: keyset-paged feed v2 (opaque cursor).
     // GroupGetCommunityFeed was already callable by name since v1.1.29;
     // v39 formalizes it in the interface (no wire change).
