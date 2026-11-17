@@ -20,5 +20,11 @@ public record UserNotificationDto(
     string Title,
     string? Snippet,
     bool IsRead,
-    DateTime CreatedAt
+    DateTime CreatedAt,
+    /// <summary>Inner target inside <see cref="ContentId"/> - e.g. the comment
+    /// id when <see cref="ContentId"/> holds the post it was left on.</summary>
+    string? SubContentId = null,
+    /// <summary>Uid of the content owner the discussion lives on - for blog
+    /// targets the profile whose Chronicles tab hosts the thread.</summary>
+    string? TargetUid = null
 );
