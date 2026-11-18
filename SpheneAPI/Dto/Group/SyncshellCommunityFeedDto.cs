@@ -49,7 +49,11 @@ public record SyncshellCommunityFeedItemDto(
     /// PreviewMediaHash→ImageMediaHash. Resolved client-side through the
     /// community media cache; <see cref="ThumbnailBase64"/> stays the inline
     /// fallback for photo payloads.</summary>
-    string? ThumbnailMediaHash = null);
+    string? ThumbnailMediaHash = null,
+    /// <summary>Inner target inside <see cref="ItemId"/> - the comment id when
+    /// the activity happened on a comment (comment rows and comment-target
+    /// reactions), so clients can deep-link into the thread.</summary>
+    long? SubItemId = null);
 
 /// <summary>Aggregated activity feed for the caller's syncshells.</summary>
 [MessagePackObject(keyAsPropertyName: true)]
