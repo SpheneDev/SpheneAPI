@@ -279,6 +279,10 @@ public interface ISpheneHub
     // v39 formalizes it in the interface (no wire change).
     Task<SyncshellCommunityFeedDto> GroupGetCommunityFeed();
     Task<SyncshellCommunityFeedPageDto> GroupGetCommunityFeedPage(FeedPageRequestDto dto);
+    // Earliest eligible upcoming community event for the "Upcoming event"
+    // highlight tile - resolved server-side so feed paging can't hide it.
+    // Null when the caller has no eligible future event.
+    Task<SyncshellCommunityFeedItemDto?> GroupGetNextCommunityEvent();
 
     // GroupGetCommunityProfile is deliberately name-invoked like
     // GroupGetCommunity - a slim profile read for list/card surfaces.
