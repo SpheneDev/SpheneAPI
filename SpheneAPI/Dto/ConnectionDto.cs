@@ -51,4 +51,10 @@ public record ServerInfo
     /// GIF API key, surfaced in client diagnostics as a local estimate only
     /// (KLIPY test keys cap at 100/hour; 0 = no estimate shown).</summary>
     public int GifTestKeyLimit { get; set; }
+
+    /// <summary>Public profiles/follow capability: the hub exposes
+    /// UserSearchPublicProfiles/UserGetPublicProfile/UserSetProfileFollow/
+    /// UserGetFollowingFeed. Additive contract - the hub ApiVersion stays
+    /// unchanged, older servers report false and clients gate the UI.</summary>
+    public bool PublicProfilesEnabled { get; set; }
 }

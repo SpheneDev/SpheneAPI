@@ -63,7 +63,12 @@ public record SyncshellCommunityFeedItemDto(
     /// row and ascending inside the shared sort tuple, so two rows whose
     /// timestamp/kind/item/actor all match still sort deterministically and
     /// the page cursor can tell them apart. Clients may ignore it.</summary>
-    string? FeedRowKey = null);
+    string? FeedRowKey = null,
+    /// <summary>The content owner's profile carries an NSFW flag - the
+    /// Following feed stamps it so viewers honouring the
+    /// <c>ProfilesAllowNsfw</c> setting can redact title/snippet/thumb
+    /// without a per-author profile lookup.</summary>
+    bool OwnerIsNsfw = false);
 
 /// <summary>Aggregated activity feed for the caller's syncshells.</summary>
 [MessagePackObject(keyAsPropertyName: true)]

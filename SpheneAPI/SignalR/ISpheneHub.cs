@@ -171,6 +171,21 @@ public interface ISpheneHub
     Task<List<OnlineUserIdentDto>> UserGetOnlinePairs(CensusDataDto? censusDataDto);
     Task<List<UserFullPairDto>> UserGetPairedClients();
     Task<UserProfileDto> UserGetProfile(UserDto dto);
+    /// <summary>Bounded public-profile search over Community-Hub-visible
+    /// (opt-in) profiles - matches display name/alias, returns slim rows.</summary>
+    Task<List<PublicProfileSummaryDto>> UserSearchPublicProfiles(PublicProfileSearchDto dto);
+    /// <summary>Slim public profile view (identity, avatar, banner, bio, tags,
+    /// public owned Chronicles). Null when the target is not publicly
+    /// available - private, blocked either direction, disabled, flagged.</summary>
+    Task<PublicProfileDto?> UserGetPublicProfile(UserDto dto);
+    /// <summary>Immediate unilateral follow/unfollow of a public profile.
+    /// Idempotent; grants no pair/chat/sync rights. False = rejected
+    /// (self-follow or target not currently publicly visible).</summary>
+    Task<bool> UserSetProfileFollow(UserProfileFollowDto dto);
+    /// <summary>"Following" feed page - public Chronicles of followed,
+    /// currently public users. Same keyset cursor contract as the
+    /// community feed; the cursor is scoped to this query.</summary>
+    Task<SyncshellCommunityFeedPageDto> UserGetFollowingFeed(FeedPageRequestDto dto);
 
     /// <summary>Activates the one-time 24h supporter trial - idempotent for
     /// supporters and already-used trials; returns the stamped start.</summary>
