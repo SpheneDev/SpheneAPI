@@ -68,7 +68,12 @@ public record SyncshellCommunityFeedItemDto(
     /// Following feed stamps it so viewers honouring the
     /// <c>ProfilesAllowNsfw</c> setting can redact title/snippet/thumb
     /// without a per-author profile lookup.</summary>
-    bool OwnerIsNsfw = false);
+    bool OwnerIsNsfw = false,
+    /// <summary>When the item entered the feed (created/published). Event
+    /// rows carry their scheduled start in <see cref="TimestampUtc"/> for
+    /// ordering, so this disambiguates activity time from event start;
+    /// null on other kinds and on rows from older servers.</summary>
+    DateTime? ActivityUtc = null);
 
 /// <summary>Aggregated activity feed for the caller's syncshells.</summary>
 [MessagePackObject(keyAsPropertyName: true)]
