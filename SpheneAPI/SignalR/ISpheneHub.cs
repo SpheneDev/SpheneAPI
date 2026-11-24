@@ -186,6 +186,11 @@ public interface ISpheneHub
     /// currently public users. Same keyset cursor contract as the
     /// community feed; the cursor is scoped to this query.</summary>
     Task<SyncshellCommunityFeedPageDto> UserGetFollowingFeed(FeedPageRequestDto dto);
+    /// <summary>"For You" digest - a server-ranked top-N slice across the
+    /// caller's community content and followed authors. Score = engagement
+    /// (reactions/comments/views) times recency decay; followed authors get
+    /// a boost. Ranked, not paged: <c>NextCursor</c> is always null.</summary>
+    Task<SyncshellCommunityFeedPageDto> UserGetForYouFeed(FeedPageRequestDto dto);
 
     /// <summary>Activates the one-time 24h supporter trial - idempotent for
     /// supporters and already-used trials; returns the stamped start.</summary>

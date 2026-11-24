@@ -90,7 +90,13 @@ public record ReactionSummaryDto(
     long TargetId,
     Dictionary<int, int> Counts,
     List<int> ViewerKinds,
-    int TotalCount
+    int TotalCount,
+    /// <summary>Counts keyed by emoji glyph - the post-migration reaction
+    /// identity. Null on older servers; clients fall back to translating
+    /// <see cref="Counts"/> through ReactionEmojiMap.</summary>
+    Dictionary<string, int>? EmojiCounts = null,
+    /// <summary>The viewer's own reaction glyphs.</summary>
+    List<string>? ViewerEmojis = null
 );
 
 /// <summary>State-based reaction write - Set=true ensures the row exists,
@@ -104,7 +110,11 @@ public record ReactionSetDto(
     /// <summary>Comment-targeted reactions carry the comment id plus its host.</summary>
     long? CommentTargetId = null,
     string? OwnerUid = null,
-    GroupData? Group = null
+    GroupData? Group = null,
+    /// <summary>The reacted emoji glyph (e.g. a chat-picker pick). Null means
+    /// a legacy predefined kind write - the server translates it through
+    /// ReactionEmojiMap, so both paths land on the same row.</summary>
+    string? Emoji = null
 );
 
 /// <summary>Paginated who-reacted listing.</summary>
@@ -116,7 +126,9 @@ public record ReactionUsersRequestDto(
     string? OwnerUid = null,
     int PageSize = 20,
     DateTime? Cursor = null,
-    GroupData? Group = null
+    GroupData? Group = null,
+    /// <summary>Emoji-glyph filter - wins over <see cref="Kind"/> when set.</summary>
+    string? Emoji = null
 );
 
 [MessagePackObject(keyAsPropertyName: true)]

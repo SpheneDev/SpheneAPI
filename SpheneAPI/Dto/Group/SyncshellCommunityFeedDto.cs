@@ -73,7 +73,28 @@ public record SyncshellCommunityFeedItemDto(
     /// rows carry their scheduled start in <see cref="TimestampUtc"/> for
     /// ordering, so this disambiguates activity time from event start;
     /// null on other kinds and on rows from older servers.</summary>
-    DateTime? ActivityUtc = null);
+    DateTime? ActivityUtc = null,
+    /// <summary>Visible comments on the row's own content (News/Event from
+    /// the grouped count, Blog from the denormalized post column). Null on
+    /// activity rows, photo rows and rows from older servers.</summary>
+    int? CommentCount = null,
+    /// <summary>Reactions on the row's own content (News/Event/Blog grouped
+    /// count). Null on activity rows, photo rows and older servers.</summary>
+    int? ReactionCount = null,
+    /// <summary>Unique non-owner viewers - blogs only
+    /// (<see cref="ViewCount"/> is the denormalized post column). Null on
+    /// every other kind and on rows from older servers.</summary>
+    int? ViewCount = null,
+    /// <summary>Full-resolution media hash when it differs from
+    /// <see cref="ThumbnailMediaHash"/> - event rows ship a preview hash as
+    /// the thumbnail, so the viewer needs the original for the opened
+    /// image. Null on other kinds and rows from older servers.</summary>
+    string? FullMediaHash = null,
+    /// <summary>The caller holds a Like reaction on this row's own content
+    /// - drives the red heart in the engagement strip and the toggle
+    /// direction of a feed like click. False on activity rows, photo rows
+    /// and rows from older servers.</summary>
+    bool LikedByMe = false);
 
 /// <summary>Aggregated activity feed for the caller's syncshells.</summary>
 [MessagePackObject(keyAsPropertyName: true)]
