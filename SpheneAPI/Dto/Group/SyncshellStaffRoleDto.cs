@@ -6,7 +6,7 @@ namespace Sphene.API.Dto.Group;
 
 /// <summary>
 /// A custom staff job on a syncshell community (Owner, Moderator, Barkeeper,
-/// Photographer, …) - shown as the affiliation on staff rows and carrying the
+/// Photographer, ...) - shown as the affiliation on staff rows and carrying the
 /// capability flags in <see cref="SyncshellStaffRoleDto.Permissions"/>.
 /// </summary>
 [MessagePackObject(keyAsPropertyName: true)]

@@ -31,7 +31,7 @@ public record SyncshellPublishingPolicyDto(
 [MessagePackObject(keyAsPropertyName: true)]
 public record EntityCardDto(
     EntityRefKind Kind,
-    /// <summary>Echoed token (<c>@uid</c>, <c>#gid</c>, <c>event:1</c>…) for client chips.</summary>
+    /// <summary>Echoed token (<c>@uid</c>, <c>#gid</c>, <c>event:1</c>...) for client chips.</summary>
     string Token,
     bool Resolved,
     string? Title,
