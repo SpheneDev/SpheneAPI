@@ -94,7 +94,24 @@ public record SyncshellCommunityFeedItemDto(
     /// - drives the red heart in the engagement strip and the toggle
     /// direction of a feed like click. False on activity rows, photo rows
     /// and rows from older servers.</summary>
-    bool LikedByMe = false);
+    bool LikedByMe = false,
+    /// <summary>Thumbs-up reactions only (toned variants included) - the
+    /// engagement strip's like count. Null on rows from older servers;
+    /// clients fall back to <see cref="ReactionCount"/> there.</summary>
+    int? LikeCount = null,
+    /// <summary>Per-emoji reaction counts EXCLUDING thumbs-up variants,
+    /// ordered by count descending. Drives the emoji chips in feed rows;
+    /// null on rows from older servers.</summary>
+    List<FeedReactionEmojiDto>? ReactionEmojis = null);
+
+/// <summary>One emoji's reaction count on a feed row's own content.</summary>
+[MessagePackObject(keyAsPropertyName: true)]
+public record FeedReactionEmojiDto(
+    string Emoji,
+    int Count,
+    /// <summary>The caller holds this reaction - feed chips render active
+    /// and toggle off on click. False on rows from older servers.</summary>
+    bool ByMe = false);
 
 /// <summary>Aggregated activity feed for the caller's syncshells.</summary>
 [MessagePackObject(keyAsPropertyName: true)]

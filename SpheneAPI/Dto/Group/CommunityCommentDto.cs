@@ -114,7 +114,13 @@ public record ReactionSetDto(
     /// <summary>The reacted emoji glyph (e.g. a chat-picker pick). Null means
     /// a legacy predefined kind write - the server translates it through
     /// ReactionEmojiMap, so both paths land on the same row.</summary>
-    string? Emoji = null
+    string? Emoji = null,
+    /// <summary>Server-authoritative toggle: the direction is decided from
+    /// the stored row, ignoring <see cref="Set"/> - immune to whatever stale
+    /// viewer state the client computed its guess from. Older servers ignore
+    /// the flag and stay state-based, so the client still sends its best
+    /// guess in <see cref="Set"/> as the fallback.</summary>
+    bool Toggle = false
 );
 
 /// <summary>Paginated who-reacted listing.</summary>
@@ -128,7 +134,13 @@ public record ReactionUsersRequestDto(
     DateTime? Cursor = null,
     GroupData? Group = null,
     /// <summary>Emoji-glyph filter - wins over <see cref="Kind"/> when set.</summary>
-    string? Emoji = null
+    string? Emoji = null,
+    /// <summary>Server-authoritative toggle: the direction is decided from
+    /// the stored row, ignoring <see cref="Set"/> - immune to whatever stale
+    /// viewer state the client computed its guess from. Older servers ignore
+    /// the flag and stay state-based, so the client still sends its best
+    /// guess in <see cref="Set"/> as the fallback.</summary>
+    bool Toggle = false
 );
 
 [MessagePackObject(keyAsPropertyName: true)]
