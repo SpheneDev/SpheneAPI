@@ -81,6 +81,10 @@ public interface ISpheneHub
     // Pushed to syncshell members when community content changed · clients invalidate the affected shell's cache
     Task Client_CommunityChanged(CommunityChangedDto dto);
 
+    // Pushed when a reaction changed on profile-owned content - fine-grained
+    // replacement for the coarse profile-update push, so counts patch in place
+    Task Client_UserReactionChanged(UserReactionChangedDto dto);
+
     // Pushed to online paired users when a user's alias or display name changed
     Task Client_UserIdentityUpdated(UserDto dto);
 

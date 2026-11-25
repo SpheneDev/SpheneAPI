@@ -150,3 +150,25 @@ public record ReactionUsersDto(
     List<UserData> Users,
     DateTime? NextCursor
 );
+
+/// <summary>Fine-grained reaction push for profile-owned content (blog posts
+/// and their comments). Group content rides CommunityChangedDto instead -
+/// this push exists so a reaction on a chronicle patches counts in place
+/// instead of invalidating the owner's whole profile. Reaches the owner's
+/// paired online viewers and the owner's own sessions - the same audience
+/// the coarse profile-update push had.</summary>
+[MessagePackObject(keyAsPropertyName: true)]
+public record UserReactionChangedDto(
+    /// <summary>The content owner whose profile surfaces are affected.</summary>
+    UserData Owner,
+    /// <summary>The thread host kind the reaction belongs to - the
+    /// CommentTargetKind ordinal, so clients map straight onto their thread
+    /// keys. Blog for everything owner-scoped today.</summary>
+    int HostKind,
+    /// <summary>The thread host id (the blog post), even when the reaction
+    /// hit a comment inside the thread - the host is what clients key on.</summary>
+    long HostId,
+    /// <summary>True when the reaction hit a comment inside the thread, not
+    /// the host itself - feed rows only care about host-level reactions.</summary>
+    bool CommentLevel = false
+);

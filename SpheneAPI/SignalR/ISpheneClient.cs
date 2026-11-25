@@ -13,6 +13,8 @@ public interface ISpheneHubClient : ISpheneHub
 {
     void OnDownloadReady(Action<Guid> act);
 
+    void OnUserReactionChanged(Action<UserReactionChangedDto> act);
+
     void OnGroupChangePermissions(Action<GroupPermissionDto> act);
 
     void OnGroupDelete(Action<GroupDto> act);
